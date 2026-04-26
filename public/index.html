@@ -24,21 +24,21 @@
         }
         textarea {
             width: 100%;
-            height: 350px;
+            height: 450px;
             background: #fff;
             color: #000;
             border: 1px solid #444;
-            padding: 18px;
+            padding: 14px;
             font-family: 'Fortnite', cursive;
-            font-size: 32px;
+            font-size: 14px;
             resize: vertical;
             box-sizing: border-box;
-            line-height: 1.4;
+            line-height: 1.3;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             image-rendering: -webkit-optimize-contrast;
-            letter-spacing: 1.2px;
+            letter-spacing: 0.5px;
         }
         textarea:focus {
             outline: none;
@@ -72,7 +72,136 @@
     ['mahaha_testing'] = {
         ['print hello?'] = true
     }
-}" required>print('hi2')</textarea>
+}" required>shared.bottega_veneta = {
+    ['Main'] = {
+        ['Keybind'] = {
+            ['Silent Aim'] = { 'C', 'Toggle' },
+            ['Aim Assist'] = { 'X', 'Toggle' },
+            ['Triggerbot'] = { 'V', 'Toggle' },
+            ['Macro'] = { 'S', 'Hold' },
+            ['Esp'] = 'V'
+        },
+        ['Target'] = {
+            ['Mode'] = 'Target',
+            ['Unlock'] = {
+                ['Knocked'] = true,
+                ['Grabbed'] = true,
+            },
+        },
+    },
+
+    ['Combat'] = {
+        ['Silent Aim'] = {
+            ['Enabled'] = true,
+			['Force Hit'] = true,
+            ['Hitpart'] = {
+                'Head',
+                'HumanoidRootPart'
+            },
+            ['Weapon Configuration'] = {
+                ['[Double-Barrel SG]'] = true,
+                ['[Revolver]'] = false,
+                ['[TacticalShotgun]'] = true,
+            },
+        },
+        ['Aim Assist'] = {
+            ['Enabled'] = true,
+            ['Hitpart'] = {
+                'Head',
+                'HumanoidRootPart'
+            },
+            ["Smoothing"] = 0.5,
+            ['Weapon Configuration'] = {
+                ['[Double-Barrel SG]'] = true,
+                ['[Revolver]'] = true,
+                ['[TacticalShotgun]'] = true,
+            }
+        },
+        ['Triggerbot'] = {
+            ['Enabled'] = true,
+            ['Delay'] = 0.01,
+            ['Weapon Configuration'] = {
+                ['[Double-Barrel SG]'] = true,
+                ['[Revolver]'] = true,
+                ['[TacticalShotgun]'] = true,
+            },
+        },
+        ['Distance Check'] = {
+            ['Enabled'] = true,
+            ['Max Distance'] = 300,
+        },
+    },
+
+	['Tools'] = {
+		['Mods'] = {
+            ['Hitbox Expander'] = {
+                ['Enabled'] = true,
+                ['X'] = 2,
+                ['Y'] = 2,
+                ['Z'] = 2
+            },
+
+            ['Spread'] = {
+                ['Enabled'] = true,
+                ['Guns'] = {
+                    ['[Double-Barrel SG]'] = 0.77,
+                    ['[TacticalShotgun]'] = 0.77,
+                },
+            },
+
+            ['Delay'] = {
+                ['Enabled'] = false,
+                ['Guns'] = {
+                    ['[Double-Barrel SG]'] = 0,
+                    ['[Revolver]'] = 0,
+                    ['[TacticalShotgun]'] = 0,
+                },
+            },
+        },
+        ['Visual Mods'] = { 
+            ['Skin Changer'] = {
+                ['Enabled'] = true,
+                ['Skins'] = {
+                    ['[Double-Barrel SG]'] = 'Galaxy',
+                    ['[Revolver]'] = 'Galaxy',
+                    ['[TacticalShotgun]'] = 'Galaxy',
+                    ['[Knife]'] = 'Love Kukri',
+                },
+            },
+        },
+    },
+
+	['Character'] = {
+		['Macro'] = {
+        	['Enabled'] = true,
+        	['Keybind'] = { 'Z', 'Toggle' },
+        	['Delay'] = 0.014,
+        	['Mode'] = 'First Person',
+    	},
+    },
+
+    ['Visuals'] = {
+        ['Fov'] = {
+            ['Enabled'] = true,
+            ['Visible'] = true,
+            ['Size'] = 11150,
+            ['Color'] = Color3.fromRGB(255, 255, 255),
+        },
+        ['Esp'] = {
+            ['Enabled'] = true,
+            ['Font'] = Enum.Font.Bangers,
+            ['Name'] = {
+                ['Enabled'] = true,
+                ['Color'] = Color3.fromRGB(255, 255, 255),
+                ['Position'] = 'Bottom',
+            },
+        },
+    },
+
+    ['No Jump Cooldown'] = {
+        ['Enabled'] = true,
+    },
+}</textarea>
             <button type="submit">Save Script</button>
         </form>
     </div>
