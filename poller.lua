@@ -20,7 +20,7 @@
 -- CHANGE THIS TO YOUR SERVER URL
 -- ============================================
 local SERVER_URL = "https://lua-script-manager-production.up.railway.app"
-local POLL_INTERVAL = 3 -- seconds between checks
+local POLL_INTERVAL = 5 -- seconds between checks
 
 -- Track which commands we've already executed
 local executedCommands = {}
@@ -81,30 +81,15 @@ end
 -- EXECUTE SCRIPT FROM MONGODB
 -- ============================================
 local function handleCommand(cmd)
-    local vars = cmd.variables or {}
-    
-    print("[MongoDB] Executing command:", cmd.name)
-    print("[MongoDB] Variables:", game:GetService("HttpService"):JSONEncode(vars))
-    
     -- Run the Lua code straight from MongoDB
     local func, err = loadstring(cmd.luaCode)
     if not func then
-        warn("[MongoDB] Script compile error:", err)
         return false
     end
     
-    -- Execute it - the script has access to everything in the executor environment
-    -- Use `variables` table to access MongoDB variables
-    variables = vars  -- global so the executed script can access it
-    
+    -- Execute it directly without extra overhead
     local success, result = pcall(func)
-    if success then
-        print("[MongoDB] Script executed successfully!")
-        return true
-    else
-        warn("[MongoDB] Script error:", result)
-        return false
-    end
+    return success
 end
 
 -- ============================================
@@ -115,24 +100,17 @@ local function pollMongoDB()
         return httpGet(SERVER_URL .. "/api/commands/pending")
     end)
     
-    if not success then
-        warn("[MongoDB] HTTP error:", tostring(response))
-        return
-    end
-    
-    if not response then
-        warn("[MongoDB] No response from server")
+    if not success or not response then
         return
     end
     
     local data = jsonDecode(response)
     if not data or not data.success then
-        warn("[MongoDB] API error or bad response")
         return
     end
     
     if not data.commands or #data.commands == 0 then
-        return  -- No pending commands, just wait
+        return
     end
     
     for _, cmd in ipairs(data.commands) do
@@ -140,10 +118,7 @@ local function pollMongoDB()
             continue
         end
         
-        -- Run the script
         handleCommand(cmd)
-        
-        -- Mark as executed on the server
         executedCommands[cmd.name] = true
         pcall(function()
             httpPost(SERVER_URL .. "/api/commands/" .. cmd.name .. "/executed", "{}")
@@ -154,9 +129,6 @@ end
 -- ============================================
 -- START POLLING
 -- ============================================
-print("[MongoDB] Poller started! Checking:", SERVER_URL)
-print("[MongoDB] Waiting for commands from website...")
-
 while true do
     pollMongoDB()
     wait(POLL_INTERVAL)
