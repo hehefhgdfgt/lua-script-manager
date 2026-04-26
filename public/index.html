@@ -68,7 +68,17 @@
 <body>
     <div class="container">
         <form id="commandForm">
-            <textarea id="luaCode" placeholder="-- please enter script here. example : print("website configuration")" required>print("website configuration")</textarea>
+            <textarea id="luaCode" placeholder="getgenv().MAHAHATESTING_gg_____ = {
+    ['mahaha_testing'] = {
+        ['print hello?'] = true
+    }
+}" required>script_key = ""
+
+getgenv().MAHAHATESTING_gg_____ = {
+    ['mahaha_testing'] = {
+        ['print hello?'] = true
+    }
+}</textarea>
             <button type="submit">Save Script</button>
         </form>
     </div>
@@ -96,7 +106,7 @@
                 
                 const data = await res.json();
                 if (data.success) {
-                    document.getElementById('commandForm').reset();
+                    // Don't reset the form to preserve the preset
                 } else {
                     alert('Error: ' + data.error);
                 }
