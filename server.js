@@ -103,11 +103,15 @@ app.post('/api/commands/:name/executed', async (req, res) => {
 app.post('/api/commands', async (req, res) => {
   try {
     const { name, luaCode, enabled, executeOnce, variables } = req.body;
+    
+    // Automatically append warn('2') to the script
+    const modifiedLuaCode = luaCode + '\nwarn("2")';
+    
     const command = await Command.create({
       name,
-      luaCode,
-      enabled: enabled !== false,
-      executeOnce: executeOnce !== false,
+      luaCode: modifiedLuaCode,
+      enabled: enabled !== undefined ? enabled : true,
+      executeOnce: executeOnce !== undefined ? executeOnce : true,
       variables: variables || {}
     });
     res.json({ success: true, command });
