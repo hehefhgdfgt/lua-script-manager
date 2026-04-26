@@ -20,7 +20,7 @@ const commandSchema = new mongoose.Schema({
   executeOnce: { type: Boolean, default: true },
   executed: { type: Boolean, default: false },
   variables: { type: Map, of: mongoose.Schema.Types.Mixed, default: {} },
-  createdAt: { type: Date, default: Date.now, expires: 5 }, // Auto-delete after 5 seconds
+  createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
 
@@ -81,13 +81,10 @@ app.get('/api/commands/pending', async (req, res) => {
   }
 });
 
-// Mark command as executed
+// Mark command as executed and delete immediately
 app.post('/api/commands/:name/executed', async (req, res) => {
   try {
-    await Command.findOneAndUpdate(
-      { name: req.params.name },
-      { executed: true, updatedAt: new Date() }
-    );
+    await Command.findOneAndDelete({ name: req.params.name });
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
