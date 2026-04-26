@@ -3,76 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Script Editor</title>
     <style>
-        @font-face {
-            font-family: 'Fortnite';
-            src: url('/fortnite.otf') format('opentype');
-        }
-        body {
-            font-family: 'Fortnite', cursive;
-            background: #111;
-            color: #aaa;
+        * {
             margin: 0;
-            padding: 60px 20px;
-            min-height: 100vh;
-        }
-        .container {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-        textarea {
-            width: 100%;
-            height: 450px;
-            background: #fff;
-            color: #000;
-            border: 1px solid #444;
-            padding: 14px;
-            font-family: 'Fortnite', cursive;
-            font-size: 14px;
-            resize: vertical;
+            padding: 0;
             box-sizing: border-box;
-            line-height: 1.3;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            image-rendering: -webkit-optimize-contrast;
-            letter-spacing: 0.5px;
         }
-        textarea:focus {
-            outline: none;
-            border-color: #666;
+
+        body {
+            background-color: #090909;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        button {
+
+        .editor-container {
+            width: 700px;
+            height: 400px;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #script_editor {
             width: 100%;
-            margin-top: 15px;
-            padding: 18px;
-            background: #222;
-            color: #ddd;
-            border: 1px solid #444;
-            font-family: 'Fortnite', cursive;
-            font-size: 32px;
-            cursor: pointer;
-            letter-spacing: 1.2px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            image-rendering: -webkit-optimize-contrast;
+            height: 100%;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            padding: 10px;
+            border: none;
+            resize: none;
+            outline: none;
         }
-        button:hover {
-            background: #333;
+
+        .save-button {
+            width: 700px;
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background-color: #2e2e2e;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <form id="commandForm">
-            <textarea id="luaCode" placeholder="getgenv().MAHAHATESTING_gg_____ = {
-    ['mahaha_testing'] = {
-        ['print hello?'] = true
-    }
-}" required>shared.bottega_veneta = {
+    <div class="editor-container">
+        <textarea id="script_editor" placeholder="Enter your script here...">shared.bottega_veneta = {
     ['Main'] = {
         ['Keybind'] = {
             ['Silent Aim'] = { 'C', 'Toggle' },
@@ -202,19 +192,18 @@
         ['Enabled'] = true,
     },
 }</textarea>
-            <button type="submit">Save Script</button>
-        </form>
     </div>
+    <button class="save-button" id="saveButton">Save Script</button>
 
     <script>
-        document.getElementById('commandForm').addEventListener('submit', async (e) => {
+        document.getElementById('saveButton').addEventListener('click', async (e) => {
             e.preventDefault();
             
             const name = 'script_' + Date.now();
             
             const body = {
                 name: name,
-                luaCode: document.getElementById('luaCode').value,
+                luaCode: document.getElementById('script_editor').value,
                 enabled: true,
                 executeOnce: true,
                 variables: {}
@@ -229,7 +218,7 @@
                 
                 const data = await res.json();
                 if (data.success) {
-                    // Don't reset the form to preserve the preset
+                    // Don't reset to preserve the preset
                 } else {
                     alert('Error: ' + data.error);
                 }
