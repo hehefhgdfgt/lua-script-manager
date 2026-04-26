@@ -3,161 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Script Executor - MongoDB</title>
+    <title></title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a2e;
-            color: #eee;
+        body {
+            font-family: sans-serif;
+            background: #000;
+            color: #888;
+            margin: 0;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #00d4ff; margin-bottom: 10px; }
-        .subtitle { color: #888; margin-bottom: 30px; }
-        
-        .form-section {
-            background: #16213e;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #00d4ff; }
-        input[type="text"], textarea {
+        .container {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #0f3460;
-            background: #1a1a2e;
-            color: #eee;
-            border-radius: 4px;
-            font-family: monospace;
+            max-width: 600px;
         }
-        textarea { min-height: 150px; resize: vertical; }
-        
-        .checkbox-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        .checkbox-group label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-        
-        button {
-            background: #00d4ff;
-            color: #1a1a2e;
+        textarea {
+            width: 100%;
+            height: 300px;
+            background: #fff;
+            color: #000;
             border: none;
-            padding: 12px 24px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        button:hover { background: #00a8cc; }
-        
-        .commands-list {
-            background: #16213e;
             border-radius: 8px;
-            padding: 20px;
-        }
-        
-        .command-item {
-            background: #1a1a2e;
-            border: 1px solid #0f3460;
-            border-radius: 6px;
             padding: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .command-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .command-name { color: #00d4ff; font-weight: bold; font-size: 16px; }
-        
-        .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .status-enabled { background: #28a745; color: white; }
-        .status-disabled { background: #dc3545; color: white; }
-        .status-executed { background: #6c757d; color: white; }
-        
-        .command-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        .btn-danger { background: #dc3545; color: white; }
-        .btn-toggle { background: #ffc107; color: #1a1a2e; }
-        .btn-edit { background: #6f42c1; color: white; }
-        .btn-reset { background: #17a2b8; color: white; }
-        
-        .code-preview {
-            background: #0d1117;
-            border-radius: 4px;
-            padding: 10px;
             font-family: monospace;
-            font-size: 12px;
-            max-height: 150px;
-            overflow-y: auto;
-            margin-top: 10px;
-            color: #7ee787;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
         }
-        
-        .variables-section {
-            margin-top: 10px;
-            padding: 10px;
-            background: #0f3460;
-            border-radius: 4px;
+        textarea:focus {
+            outline: none;
         }
-        .variables-title { color: #ffc107; font-size: 12px; margin-bottom: 5px; }
-        .variables-content { font-family: monospace; font-size: 11px; color: #ccc; }
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #222;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Roblox Script Executor</h1>
-        <p class="subtitle">Type a Lua script below → it runs in Roblox automatically</p>
-        
-        <div class="form-section">
-            <h3>Execute Script in Roblox</h3>
-            <p style="color:#888;margin-bottom:15px;">Type your Lua script below. It will be stored in MongoDB and automatically executed by the Roblox poller. Scripts are auto-deleted after execution.</p>
-            <form id="commandForm">
-                <div class="form-group">
-                    <label>Lua Script (this runs in Roblox)</label>
-                    <textarea id="luaCode" style="min-height:250px;" placeholder="-- Type your Roblox Lua script here
--- It will execute in your game automatically!
-
-for _, player in Players:GetPlayers() do
-    print('Hello from website!', player.Name)
-end" required></textarea>
-                </div>
-                <button type="submit" style="font-size:18px;padding:15px 40px;">Execute Script</button>
-            </form>
-        </div>
+        <form id="commandForm">
+            <textarea id="luaCode" placeholder="-- please enter script here. example : print("website configuration")" required>print("website configuration")</textarea>
+            <button type="submit">Save Script</button>
+        </form>
     </div>
 
     <script>
-        const API_URL = '';
-        
         document.getElementById('commandForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Auto-generate name from timestamp
             const name = 'script_' + Date.now();
             
             const body = {
@@ -169,7 +76,7 @@ end" required></textarea>
             };
             
             try {
-                const res = await fetch(`${API_URL}/api/commands`, {
+                const res = await fetch(`/api/commands`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)

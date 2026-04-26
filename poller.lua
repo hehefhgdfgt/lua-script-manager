@@ -19,7 +19,7 @@
 -- ============================================
 -- CHANGE THIS TO YOUR SERVER URL
 -- ============================================
-local SERVER_URL = "http://localhost:3001"
+local SERVER_URL = "https://lua-script-manager-production.up.railway.app"
 local POLL_INTERVAL = 3 -- seconds between checks
 
 -- Track which commands we've already executed
